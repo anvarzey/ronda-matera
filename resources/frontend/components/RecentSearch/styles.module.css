@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.sentence {
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.undoSearch {
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+}

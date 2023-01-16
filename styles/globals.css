@@ -1,26 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500&display=swap');
+
+:root {
+  --green: #387B1D;
+  --yellow: #ffc021;
+
+  --error: rgb(131, 3, 3);
+
+  --primary: #2f445f;
+  --secondary: #37567d;
+  --tertiary: #3376a3;
+  --quaternary: #66c4ca;
+  --quinary: #fafaeb;
+
+  --title: rgb(2, 34, 140);
+  --btn: #0088cc;
+  --btn-hover: #017dbb;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  font-family: 'Baloo 2', cursive;
+  overflow: auto;
 }
 
 * {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+body {
+  background-color: rgb(221, 220, 220, 0.6);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

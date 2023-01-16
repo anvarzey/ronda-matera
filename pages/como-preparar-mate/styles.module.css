@@ -1,0 +1,102 @@
+.body {
+  margin: 0 auto 6rem;
+  padding: 0 1rem;
+  width: min(100%, 60rem);
+}
+
+.title {
+  text-align: center;
+  margin: 2rem auto;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: white;
+  border: 1.5px solid var(--primary);
+  width: fit-content;
+  color: black;
+}
+
+.extraContainer {
+  background-color: white;
+  width: 100%;
+}
+
+.text {
+  margin: 1rem 0;
+  margin: 0;
+  padding: 1.5rem 1.5rem;
+  background-color: white;
+  font-size: 1.1rem;
+}
+
+.instructionsContainer {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer {
+  position: relative;
+  margin: 0 auto;
+  height: min(60vh, 30rem);
+  width: min(100%, 30rem);
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid rgb(110, 110, 110, 0.5);
+}
+
+.image {
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.stepsContainer {
+  margin: 0;
+  padding: 1.5rem 3rem;
+  padding: 1.5rem;
+  background-color: rgb(255, 255, 255, 0.9);
+  border-radius: 0;
+}
+
+.step {
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--primary);
+}
+
+.firstStep {
+  margin-top: 0;
+}
+
+.lastStep {
+  margin-top: 1rem;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+@media screen and (min-width: 50em) {
+  .body {
+    padding-inline: 3rem;
+  }
+
+  .extraContainer {
+    padding: 1rem 3rem;
+  }
+
+  .instructionsContainer {
+    gap: 1rem;
+  }
+
+  .image {
+    padding: 2rem;
+
+  }
+
+  .stepsContainer {
+    padding: 2rem 3rem;
+    margin: 0;
+  }
+}

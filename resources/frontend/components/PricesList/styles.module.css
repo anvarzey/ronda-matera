@@ -1,0 +1,105 @@
+.container {
+  width: 80%;
+  margin: 1rem auto;
+  width: min(100%, 50rem);
+}
+
+.comparator {
+  font-size: 1.15rem;
+  background-color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0.25rem 0.75rem;
+  width: fit-content;
+  border: 0.5px solid darkgray;
+  border-bottom: 0;
+}
+
+.titles {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.75rem;
+  justify-content: space-between;
+  background-color: white;
+  border: 0.5px solid darkgrey;
+}
+
+.listContainer {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.priceContainer {
+  display: flex;
+  border: 1.5px solid rgb(30, 30, 30, 0.2);
+  align-items: center;
+  background-color: white;
+  border-radius: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  row-gap: 0.75rem;
+
+}
+
+.firstPrice {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.price {
+  font-size: 1.5rem;
+}
+
+.circle {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: rgb(134, 65, 8);
+  border: 0.5px solid black;
+
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--btn);
+  border-radius: 1rem;
+  color: white;
+  text-align: center;
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 50em) {
+  .priceContainer {
+    justify-content: space-between;
+    gap: 0;
+    padding: 1rem 2rem;
+    /* position: relative;
+    right: -38%;
+    right: -9rem; */
+  }
+
+  .titles {
+    justify-content: flex-start;
+    gap: 7rem;
+    padding: 1rem 3rem;
+  }
+
+  .btnContainer {
+    width: 10rem;
+  }
+
+  .btn:hover {
+    background-color: var(--btn-hover);
+
+  }
+}

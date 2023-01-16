@@ -1,0 +1,31 @@
+.form {
+  padding: 0;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(85%, 30rem);
+}
+
+.input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1rem 0 0 1rem;
+}
+
+.btn {
+  border: 0;
+  background-color: var(--yellow);
+  padding: 0.5rem 0.65rem;
+  border-radius: 0 1rem 1rem 0;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 52em) {
+  .form {
+    width: min(26vw, 23rem);
+  }
+}

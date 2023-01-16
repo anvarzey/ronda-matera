@@ -1,0 +1,63 @@
+{
+    "1": {
+    "question": "¿Has tomado antes?",
+    "options": ["Si", "No"],
+    "answers": {
+      "Si": {
+        "action": "go on",
+        "next": 3
+      },
+      "No": {
+        "action": "go on",
+        "next": 2
+      }
+    }
+    
+  },
+  "2": {
+    "question": "¿Tienes mate y bombilla?",
+    "options": ["Si", "No"],
+    "answers": {
+      "Si": {
+        "action": "show",
+        "keyword": "principiante"
+      },
+      "No": {
+        "action": "show",
+        "keyword": "desmateado"
+      }
+}
+  },
+  "3": {
+    "question": "¿Qué sabor de yerba prefieres?",
+    "options": ["Regular", "Compuesta", "Saborizada"],
+    "answers": {
+      "Saborizada": {
+        "action": "show",
+        "keyword": "saborizada"
+      },
+      "Compuesta": {
+        "action": "show",
+        "keyword": "compuesta"
+      },
+      "Regular": {
+        "action": "go on",
+        "next": 4
+      }
+  }
+  },
+  "4": {
+    "question": "¿Eres de los que prefieren un gusto normal o más fuerte?",
+    "options": ["Normal", "Intensa"],
+    "answers": {
+      "Normal": {
+        "action": "show",
+        "keyword": "normal"
+      },
+      "Intensa": {
+        "action": "show",
+        "keyword": "intensa"
+      }
+  }
+  }
+}
