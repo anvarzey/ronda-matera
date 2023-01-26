@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import MobileNavbar from '../resources/frontend/components/MobileNavbar'
 import TopButton from '../resources/frontend/components/TopButton'
 import HeroImages from '../resources/frontend/components/HeroImages'
+import SearchIcon from '../resources/frontend/components/Icons/SearchIcon'
 
 export default function Home (): React.ReactElement {
   const [searchQuery, setSearchQuery] = useState('')
@@ -25,7 +26,8 @@ export default function Home (): React.ReactElement {
     e.preventDefault()
     const regexToAvoidEmpty = /(?<!\w)\s+(?!\w)/g
     if (searchQuery !== '' && !regexToAvoidEmpty.test(searchQuery)) {
-      router.push('/yerba-mate?search=' + searchQuery)
+      const parsedSearchQuery = searchQuery.split(' ').filter(word => word !== '').join('-')
+      router.push('/yerba-mate?search=' + parsedSearchQuery)
     }
   }
   return (
@@ -49,7 +51,8 @@ export default function Home (): React.ReactElement {
             <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
               <input onChange={handleChange} className={styles.searchBar} type='text' placeholder='Buscar' />
               <button className={styles.searchBarBtn}>
-                Search
+                <span className={styles.searchBarBtnWord}>Search</span>
+                <span className={styles.searchBarBtnIcon}><SearchIcon /></span>
               </button>
             </form>
           </div>

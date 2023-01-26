@@ -9,7 +9,7 @@ export async function productsController (
   const limit = req.query.limit !== undefined ? Number(req.query.limit) : 15
   const page = req.query.page !== undefined ? Number(req.query.page) - 1 : 0
   const query = queryMaker(req.query)
-  const { sort } = req.query || undefined
+  const sort = Object.hasOwn(req.query, 'sort') ? req.query : undefined
 
   const sortOptions = {
     nameUp: { name: 1 },
@@ -18,7 +18,7 @@ export async function productsController (
     priceDown: { 'lowestPrice.price': -1 }
   }
 
-  const sortQuery = sort !== undefined && Object.hasOwn(sortOptions, sort)
+  const sortQuery = sort !== undefined && typeof sort === 'string' && Object.hasOwn(sortOptions, sort)
     ? sortOptions[sort]
     : {}
 

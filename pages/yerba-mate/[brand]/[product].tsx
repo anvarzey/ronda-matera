@@ -16,14 +16,13 @@ export default function ProductHandler (): React.ReactElement {
   const { brand, product } = router.query
   let queryString
   if (brand && product?.includes('Kit')) {
-    queryString = product.split(' ')
+    queryString = product.split('-')
     queryString.splice(1, 0, brand)
-    queryString = queryString.join('%20')
+    queryString = queryString.join('-')
   } else {
-    queryString = brand + '%20' + product
+    queryString = brand + '-' + product
   }
 
-  console.log(queryString)
   const { data, error, isLoading } = useSWR('/api/singleProduct/' + queryString)
 
   if (isLoading) {

@@ -6,9 +6,21 @@ interface Query {
   brand?: string | MultipleQuery
   blend?: string | MultipleQuery
   format?: string | MultipleQuery
+  name?: {
+    $regex: string
+    $options: string
+  }
+  search?: string
 }
 
-export default function queryMaker (queries): Query {
+interface Props {
+  brand?: string
+  blend?: string
+  format?: string
+  search?: string
+}
+
+export default function queryMaker (queries: Props): Query {
   const filters = [
     'brand',
     'blend',
@@ -16,18 +28,24 @@ export default function queryMaker (queries): Query {
     'search'
   ]
 
+  if (queries === undefined) return {}
+
   const query: Query = {}
 
-  for (const prop in queries) {
-    if (filters.find(e => e === prop) !== undefined) {
+  let prop: keyof Props
+
+  if (filters.find(e => e === prop) !== undefined) {
+    for (prop in queries) {
+      if (queries[prop] === undefined) return {}
       if (prop === 'search') {
+        const searchRegex = queries[prop]?.replaceAll('-', ' ')
         const searchQuery = {
-          $regex: queries[prop],
+          $regex: searchRegex,
           $options: 'i'
         }
         query.name = searchQuery
       } else {
-        if (queries[prop].includes(',') === true) {
+        if (queries[prop]?.includes(',') === true) {
           const arr = queries[prop].split(',')
           query[prop] = {
             $in: arr

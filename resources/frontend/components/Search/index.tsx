@@ -15,7 +15,8 @@ export default function Search (): React.ReactElement {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (searchQuery !== '') {
-      router.push('/yerba-mate?search=' + searchQuery)
+      const parsedSearchQuery = searchQuery.split(' ').filter(word => word !== '').join('-')
+      router.push('/yerba-mate?search=' + parsedSearchQuery)
     }
   }
   return (

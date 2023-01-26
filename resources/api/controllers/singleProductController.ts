@@ -5,7 +5,7 @@ export default async function singleProductController (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const name = req.query.name.replace('%20', ' ')
+  const name = req.query.name.replaceAll('-', ' ')
 
   try {
     const productInfo = await getSingleProduct(name)

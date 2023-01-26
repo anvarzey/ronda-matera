@@ -8,15 +8,18 @@ export default function RecentSearch (): React.ReactElement {
 
   const handleUndoSearch = (): void => {
     const query = router.asPath
-    const regex = /(\?|&)search=\w+(&?)/g
-    const newURL = query.replace(regex, '')
+    const regex = /(\?|&)search=((\w+|\+)(-?))+/gi
+    let newURL = query.replace(regex, '').trim()
+
     router.push(newURL)
   }
+
+  const parsedQuery = query.search.replaceAll('-', ' ')
 
   return (
     <div className={styles.container}>
       <span className={styles.sentence}>
-        Buscaste "{query.search}"&nbsp;
+        Buscaste "{parsedQuery}"&nbsp;
       </span>
       <span onClick={handleUndoSearch} className={styles.undoSearch}>
         <CloseCircleIcon />

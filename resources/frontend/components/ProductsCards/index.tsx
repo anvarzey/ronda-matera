@@ -9,16 +9,22 @@ import ErrorMessage from '../ErrorMessage'
 export default function ProductsCards ({ keyword }): React.ReactElement {
   const { data, isLoading, error } = useSWR(`/api/recommender/${keyword}`)
 
-  if (isLoading) return <Loader />
+  if (isLoading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <Loader />
+      </div>
+    )
+  }
   if (error) return <ErrorMessage />
 
   return (
     <ul className={styles.container}>
       {
+        Object.entries(data).length >= 1 &&
         data?.data.map(product => {
           const price = formatPrice(product.lowestPrice.price)
-          const triggeredName = product.name.replace(`${product.brand} `, '').trim().replaceAll(' ', '%20')
-          console.log(triggeredName)
+          const triggeredName = product.name.replace(`${product.brand} `, '').trim().replaceAll(' ', '-')
           const url = `/yerba-mate/${product.brand}/${triggeredName}`
           return (
             <li key={product._id} className={styles.card}>

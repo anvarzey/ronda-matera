@@ -6,7 +6,7 @@ import { productsController } from '../../../../resources/api/controllers/produc
 type ApiRequest = NextApiRequest & ReturnType<typeof createRequest>
 type ApiResponse = NextApiResponse & ReturnType<typeof createResponse>
 
-jest.mock('../../../resources/api/controllers/productsController')
+jest.mock('../../../../resources/api/controllers/productsController')
 
 describe('GET products', () => {
   function mockRequestResponse (method: RequestMethod = 'GET'): { req: ApiResponse, res: ApiRequest } {

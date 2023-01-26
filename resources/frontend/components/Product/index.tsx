@@ -6,7 +6,7 @@ import parseFormats from '../../utils/parseFormats'
 
 export default function Product ({ product }): React.ReactElement {
   const bestPrice = formatPrice(product.lowestPrice.price)
-  const triggeredName = product.name.replace(product.brand, '').trim()
+  const triggeredName = product.name.split(' ').filter(word => word !== product.brand).join('-')
   const url = `/yerba-mate/${product.brand}/${triggeredName}`
 
   const {

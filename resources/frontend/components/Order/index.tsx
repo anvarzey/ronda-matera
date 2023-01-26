@@ -22,7 +22,7 @@ export default function Order (): React.ReactElement {
       if (isSorted) {
         const regexToDelete = /(\?|&)sort=\w+/g
         const withoutSort = basePath.replace(regexToDelete, '')
-        router.push(withoutSort)
+        router.push(withoutSort).catch(err => err)
         return
       } else {
         return
@@ -32,15 +32,14 @@ export default function Order (): React.ReactElement {
     if (isSorted) {
       const regexToReplace = /(?<=sort=)\w+(?=&?)/g
       const newPath = basePath.replace(regexToReplace, value)
-      router.push(newPath)
+      router.push(newPath).catch(err => err)
     } else {
       if (basePath.includes('?') && basePath.includes('=')) {
-        router.push(basePath + '&sort=' + value)
+        router.push(basePath + '&sort=' + value).catch(err => err)
       } else {
-        router.push(basePath + '?sort=' + value)
+        router.push(basePath + '?sort=' + value).catch(err => err)
       }
     }
-    // console.log(basePath)
   }
   return (
     <div className={styles.orderContainer}>
@@ -50,21 +49,6 @@ export default function Order (): React.ReactElement {
           Ordenar por
         </span>
       </div>
-      {/* <select className={styles.orderOptions}>
-        <option value='' />
-        <option value=''>
-          Precio: de menor a mayor
-        </option>
-        <option value=''>
-          Precio: de mayor a menor
-        </option>
-        <option value=''>
-          Nombre: A-Z
-        </option>
-        <option value=''>
-          Nombre: Z-A
-        </option>
-      </select> */}
       <ul className={styles.orderList} aria-hidden={!show}>
         <li onClick={() => handleFilter('aleatorio')}>
           Aleatorio

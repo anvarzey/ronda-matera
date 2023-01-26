@@ -5,8 +5,6 @@ import useFilter from '../../hooks/useFilter'
 import CheckSquareIcon from '../Icons/CheckSquareIcon'
 import SquareIcon from '../Icons/SquareIcon'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-// import { useEffect, useState } from 'react'
 
 const BRANDS = [
   'Amanda',
@@ -62,12 +60,8 @@ export default function Filters (): React.ReactElement {
 
   const handleApplicator = (): void => {
     const urlQueries = handleQueryString()
-    router.push('/yerba-mate' + urlQueries)
+    router.push('/yerba-mate' + urlQueries).catch(err => err)
   }
-
-  useEffect(() => {
-    console.log('RERENDER FILTERS COMPONENT')
-  }, [])
 
   return (
     <div className={styles.container}>

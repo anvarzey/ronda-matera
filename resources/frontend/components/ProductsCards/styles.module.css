@@ -1,3 +1,11 @@
+.loaderContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   margin: 0 auto;
   width: 90%;
@@ -69,6 +77,10 @@
 }
 
 @media screen and (min-width: 52em) and (pointer: fine) {
+  .loaderContainer {
+    height: 20rem;
+  }
+
   .container {
     position: relative;
     height: 20rem;
@@ -83,13 +95,10 @@
   }
 
   .card {
-    /* background-color: #17141d;
-    background-color: #63b7eb; */
-    /*   margin-left: -50px; */
     position: relative;
     width: 14rem;
     left: 0px;
-    transition: 0.4s ease-out;
+    transition: 0.4s ease-in-out;
   }
 
   .cardContent {
