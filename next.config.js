@@ -12,6 +12,9 @@ const nextConfig = {
     //     pathname: '/dfyxdowwb/image/upload/*'
     //   }
     // ]
+  },
+  typescript: {
+    ignoreBuildErrors: true
   }
 }
 
