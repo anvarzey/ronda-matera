@@ -1,6 +1,6 @@
 {
   "extends": [
-    "./node_modules/ts-standard/eslintrc",
+    // "./node_modules/ts-standard/eslintrc",
     "next/core-web-vitals"
   ],
   "parserOptions": {

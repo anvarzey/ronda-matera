@@ -14,16 +14,20 @@ import useSWR from 'swr'
 export default function ProductHandler (): React.ReactElement {
   const router = useRouter()
   const { brand, product } = router.query
-  let queryString
-  if (brand && product?.includes('Kit')) {
-    queryString = product.split('-')
-    queryString.splice(1, 0, brand)
-    queryString = queryString.join('-')
-  } else {
-    queryString = brand + '-' + product
+  let queryString = ''
+  if (typeof brand === 'string' && typeof product === 'string') {
+    if (product?.includes('Kit')) {
+      const queryArr: string[] = product.split('-')
+      queryArr.splice(1, 0, brand)
+      queryString = queryArr.join('-')
+    } else {
+      if (typeof brand === 'string' && typeof product === 'string') {
+        queryString = `${brand}-${product}`
+      }
+    }
   }
 
-  const { data, error, isLoading } = useSWR('/api/singleProduct/' + queryString)
+  const { data, error, isLoading } = useSWR(`/api/singleProduct/${queryString}`)
 
   if (isLoading) {
     return (
@@ -35,12 +39,14 @@ export default function ProductHandler (): React.ReactElement {
       </>
     )
   }
-  if (error) return (
-    <>
-      <Header />
-      <ErrorMessage />
-    </>
-  )
+  if (error !== null && error !== undefined) {
+    return (
+      <>
+        <Header />
+        <ErrorMessage />
+      </>
+    )
+  }
   const productData = data[0]
   const parsedFormat = parseFormats(productData.format, productData.name)
   const bestPriceFormatted = formatPrice(productData.lowestPrice.price)

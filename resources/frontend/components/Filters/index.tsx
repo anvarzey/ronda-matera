@@ -59,8 +59,8 @@ export default function Filters (): React.ReactElement {
   } = useFilter()
 
   const handleApplicator = (): void => {
-    const urlQueries = handleQueryString()
-    router.push('/yerba-mate' + urlQueries).catch(err => err)
+    const urlQueries: string = handleQueryString()
+    router.push(`/yerba-mate${urlQueries}`).catch(err => err)
   }
 
   return (

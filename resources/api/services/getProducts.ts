@@ -1,7 +1,24 @@
-import { Product } from '../models/Product'
+import { Product, IProduct } from '../models/Product'
 import './connectToMongo'
+import { Query } from '../utils/queryMaker'
 
-export default async function getProducts (queries) {
+interface Queries {
+  query: Query | string
+  limit: number
+  sortQuery: string | {}
+  beginFrom: number
+  page: number
+}
+
+interface Response {
+  data: IProduct[]
+  limit: number
+  page: number
+  totalPages: number
+  totalProducts: number
+}
+
+export default async function getProducts (queries: Queries): Promise<Response | any> {
   const {
     query,
     limit,

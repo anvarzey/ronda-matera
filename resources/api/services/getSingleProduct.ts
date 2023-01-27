@@ -11,7 +11,7 @@ interface responseObject {
   totalProducts: number
 }
 
-export default async function getSingleProduct (name: string): Promise<responseObject | Error | {}> {
+export default async function getSingleProduct (name: string): Promise<responseObject | any> {
   const queryParameters = {
     path: 'prices',
     model: Price,

@@ -1,26 +1,26 @@
 import styles from './styles.module.css'
-import useIndexes from "../../hooks/useIndexes"
+import useIndexes from '../../hooks/useIndexes'
 import { useRouter } from 'next/router'
 import ChevronIcon from '../Icons/ChevronIcon'
 
-export default function PagesIndex ({ actual, total }): React.ReactElement {
+export default function PagesIndex ({ actual, total }: { actual: number, total: number }): React.ReactElement {
   const { actualPage, pages, totalPages } = useIndexes(actual, total)
   const router = useRouter()
 
-  const handleNavigation = (num) => {
+  const handleNavigation = (num: number): void => {
     const actualURL = router.asPath
     const pageRegex = /(?<=(&|\?))page(?==)/
     let newURL = ''
     if (pageRegex.test(actualURL)) {
       const valueRegex = /(?<=page=)\d+/
-      newURL = actualURL.replace(valueRegex, num)
+      newURL = actualURL.replace(valueRegex, String(num))
     } else {
       const { query } = router
       newURL = Object.keys(query).length >= 1
-        ? actualURL.concat('&page=', num)
-        : actualURL.concat('?page=', num)
+        ? actualURL.concat('&page=', String(num))
+        : actualURL.concat('?page=', String(num))
     }
-    router.push(newURL)
+    router.push(newURL).catch(error => error)
   }
 
   const handlePrevious = (): void => {
@@ -30,32 +30,34 @@ export default function PagesIndex ({ actual, total }): React.ReactElement {
       let newURL = ''
       if (pageRegex.test(actualURL)) {
         const valueRegex = /(?<=page=)\d+/
-        newURL = actualURL.replace(valueRegex, actual - 1)
+        newURL = actualURL.replace(valueRegex, String(actual - 1))
       } else {
         const { query } = router
         newURL = Object.keys(query).length >= 1
-          ? actualURL.concat('&page=', actual - 1)
-          : actualURL.concat('?page=', actual - 1)
+          ? actualURL.concat('&page=', String(actual - 1))
+          : actualURL.concat('?page=', String(actual - 1))
       }
-      router.push(newURL)
+      router.push(newURL).catch(error => error)
     }
   }
 
   const handleNext = (): void => {
-    if (actual < totalPages) {
-      const actualURL = router.asPath
-      const pageRegex = /(?<=(&|\?))page(?==)/
-      let newURL = ''
-      if (pageRegex.test(actualURL)) {
-        const valueRegex = /(?<=page=)\d+/
-        newURL = actualURL.replace(valueRegex, actual + 1)
-      } else {
-        const { query } = router
-        newURL = Object.keys(query).length >= 1
-          ? actualURL.concat('&page=', actual + 1)
-          : actualURL.concat('?page=', actual + 1)
+    let newURL = ''
+    if (totalPages !== undefined) {
+      if (actual < totalPages) {
+        const actualURL = router.asPath
+        const pageRegex = /(?<=(&|\?))page(?==)/
+        if (pageRegex.test(actualURL)) {
+          const valueRegex = /(?<=page=)\d+/
+          newURL = actualURL.replace(valueRegex, String(actual + 1))
+        } else {
+          const { query } = router
+          newURL = Object.keys(query).length >= 1
+            ? actualURL.concat('&page=', String(actual + 1))
+            : actualURL.concat('?page=', String(actual + 1))
+        }
+        router.push(newURL).catch(error => error)
       }
-      router.push(newURL)
     }
   }
 
@@ -68,12 +70,14 @@ export default function PagesIndex ({ actual, total }): React.ReactElement {
         pages.map(num => {
           return (
             actualPage === num
-              ? <li key={num} className={styles.actual}>
-                {num}
-              </li>
-              : <li onClick={() => handleNavigation(num)} key={num} className={styles.normal}>
-                {num}
-              </li>
+              ? (
+                <li key={num} className={styles.actual}>
+                  {num}
+                </li>)
+              : (
+                <li onClick={() => handleNavigation(num)} key={num} className={styles.normal}>
+                  {num}
+                </li>)
           )
         })
       }

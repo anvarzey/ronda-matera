@@ -12,7 +12,7 @@ export default function useIndexes (actualPage: number, totalPages: number): Res
 
   let startingPage
   let endingPage
-  const pages = []
+  const pages: number[] = []
 
   if (actualPage > totalPages || totalPages < 1 || actualPage < 1) {
     startingPage = undefined

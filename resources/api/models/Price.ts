@@ -34,9 +34,9 @@ const priceSchema = new Schema<IPrice>({
   }]
 })
 
-export let Price
+export let Price: IPrice | typeof mongoose.models.Price
 
-if (mongoose.models.Price){
+if (mongoose.models.Price !== undefined && mongoose.models.Price !== null) {
   Price = mongoose.models.Price
 } else {
   Price = model('Price', priceSchema)

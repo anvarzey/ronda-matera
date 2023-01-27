@@ -47,9 +47,9 @@ const vendorSchema = new Schema<IVendor>({
   }
 })
 
-export let Vendor
+export let Vendor: IVendor | typeof mongoose.models.Vendor
 
-if (mongoose.models.Vendor){
+if (mongoose.models.Vendor !== undefined && mongoose.models.Vendor !== null) {
   Vendor = mongoose.models.Vendor
 } else {
   Vendor = model('Vendor', vendorSchema)

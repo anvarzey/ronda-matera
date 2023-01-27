@@ -19,7 +19,7 @@ export default function PrepareitorHandler (): React.ReactElement {
         <h1 className={styles.title}>Como preparar un mate</h1>
         <section className={styles.extraContainer}>
           <div className={styles.text}>
-            El saber preparar bien un mate puede parecer una tontería, o algo muy complicado, depende como se lo vea 👀 Pero no es para tanto, solo hay que prestar atención a unos pequeños detalles. ¿Por qué es importante? Bueno porque cebar (preparar) bien el mate marca la diferencia en el sabor y en cuanto te dura el mate sin que se te "lave" o, en otras palabras, que tarde más en llegar al punto en que la yerba deje de absorber el agua y empiece a desprender un gusto feo.
+            El saber preparar bien un mate puede parecer una tontería, o algo muy complicado, depende como se lo vea 👀 Pero no es para tanto, solo hay que prestar atención a unos pequeños detalles. ¿Por qué es importante? Bueno porque cebar (preparar) bien el mate marca la diferencia en el sabor y en cuanto te dura el mate sin que se te &quot;lave&quot; o, en otras palabras, que tarde más en llegar al punto en que la yerba deje de absorber el agua y empiece a desprender un gusto feo.
           </div>
           <div className={styles.imageContainer}>
             <Image className={styles.image} src='/instrucciones.jpeg' alt='Instrucciones' fill />

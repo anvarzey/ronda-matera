@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Header from '../../resources/frontend/components/Header'
 import Quiz from '../../resources/frontend/components/Quiz'
-import { useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 import styles from './styles.module.css'
 import MobileNavbar from '../../resources/frontend/components/MobileNavbar'
 import ProductsCards from '../../resources/frontend/components/ProductsCards'
@@ -14,7 +14,7 @@ export default function RecomendadorHandler (): React.ReactElement {
   const handleStartQuiz = (): void => {
     setStartQuiz(true)
   }
-  const handleQuitQuiz = (): void => {
+  const handleQuitQuiz: MouseEventHandler<HTMLButtonElement> = (): void => {
     setStartQuiz(false)
     setAdvice(undefined)
   }
@@ -46,10 +46,11 @@ export default function RecomendadorHandler (): React.ReactElement {
               ? startQuiz
                 ? <Quiz handleKeyword={handleKeyword} handleQuitQuiz={handleQuitQuiz} />
                 : <button className={styles.startBtn} onClick={handleStartQuiz}>Comenzar</button>
-              : <>
-                <button className={styles.restartBtn} onClick={handleQuitQuiz}>Volver a empezar</button>
-                <ProductsCards keyword={advice} />
-              </>
+              : (
+                <>
+                  <button className={styles.restartBtn} onClick={handleQuitQuiz}>Volver a empezar</button>
+                  <ProductsCards keyword={advice} />
+                </>)
           }
         </section>
       </main>

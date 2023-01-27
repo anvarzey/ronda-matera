@@ -9,12 +9,14 @@ export default function RecentSearch (): React.ReactElement {
   const handleUndoSearch = (): void => {
     const query = router.asPath
     const regex = /(\?|&)search=((\w+|\+)(-?))+/gi
-    let newURL = query.replace(regex, '').trim()
+    const newURL = query.replace(regex, '').trim()
 
-    router.push(newURL)
+    router.push(newURL).catch(error => error)
   }
 
-  const parsedQuery = query.search.replaceAll('-', ' ')
+  const searchQuery = query.search === undefined ? '' : typeof query.search === 'string' ? query.search : query.search[0]
+
+  const parsedQuery = searchQuery.replaceAll('-', ' ')
 
   return (
     <div className={styles.container}>

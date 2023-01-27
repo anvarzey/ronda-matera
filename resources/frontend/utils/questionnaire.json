@@ -1,18 +1,17 @@
 {
-    "1": {
+  "1": {
     "question": "¿Has tomado antes?",
     "options": ["Si", "No"],
     "answers": {
       "Si": {
         "action": "go on",
-        "next": 3
+        "next": 2
       },
       "No": {
         "action": "go on",
-        "next": 2
+        "next": 1
       }
     }
-    
   },
   "2": {
     "question": "¿Tienes mate y bombilla?",
@@ -26,7 +25,7 @@
         "action": "show",
         "keyword": "desmateado"
       }
-}
+    }
   },
   "3": {
     "question": "¿Qué sabor de yerba prefieres?",
@@ -42,9 +41,9 @@
       },
       "Regular": {
         "action": "go on",
-        "next": 4
+        "next": 3
       }
-  }
+    }
   },
   "4": {
     "question": "¿Eres de los que prefieren un gusto normal o más fuerte?",
@@ -58,6 +57,6 @@
         "action": "show",
         "keyword": "intensa"
       }
-  }
+    }
   }
 }

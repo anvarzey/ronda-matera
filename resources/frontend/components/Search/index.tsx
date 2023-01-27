@@ -1,22 +1,22 @@
 import SearchIcon from '../Icons/SearchIcon'
 import styles from './styles.module.css'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { ChangeEvent, SyntheticEvent, useState } from 'react'
 
 export default function Search (): React.ReactElement {
   const [searchQuery, setSearchQuery] = useState('')
   const router = useRouter()
 
-  const handleChange = (e): void => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
     setSearchQuery(value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault()
     if (searchQuery !== '') {
       const parsedSearchQuery = searchQuery.split(' ').filter(word => word !== '').join('-')
-      router.push('/yerba-mate?search=' + parsedSearchQuery)
+      router.push('/yerba-mate?search=' + parsedSearchQuery).catch(error => error)
     }
   }
   return (

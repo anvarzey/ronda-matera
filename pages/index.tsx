@@ -6,7 +6,7 @@ import BinocularsIcon from '../resources/frontend/components/Icons/BinocularsIco
 import ThumbsUpIcon from '../resources/frontend/components/Icons/ThumbsUpIcon'
 import ChecklistIcon from '../resources/frontend/components/Icons/ChecklistIcon'
 import ProductsCards from '../resources/frontend/components/ProductsCards'
-import { useState } from 'react'
+import { ChangeEvent, SyntheticEvent, useState } from 'react'
 import { useRouter } from 'next/router'
 import MobileNavbar from '../resources/frontend/components/MobileNavbar'
 import TopButton from '../resources/frontend/components/TopButton'
@@ -17,17 +17,17 @@ export default function Home (): React.ReactElement {
   const [searchQuery, setSearchQuery] = useState('')
   const router = useRouter()
 
-  const handleChange = (e): void => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
     setSearchQuery(value)
   }
 
-  const handleSubmit = (e): void => {
+  const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault()
     const regexToAvoidEmpty = /(?<!\w)\s+(?!\w)/g
     if (searchQuery !== '' && !regexToAvoidEmpty.test(searchQuery)) {
       const parsedSearchQuery = searchQuery.split(' ').filter(word => word !== '').join('-')
-      router.push('/yerba-mate?search=' + parsedSearchQuery)
+      router.push('/yerba-mate?search=' + parsedSearchQuery).catch(error => error)
     }
   }
   return (

@@ -7,7 +7,7 @@ export default function TopButton (): React.ReactElement {
 
   const handleTopBtn = (): void => {
     const heightToAppear = 120
-    const scrollNum = document.body.scrollTop || document.documentElement.scrollTop
+    const scrollNum = document.body.scrollTop !== undefined ? document.body.scrollTop : document.documentElement.scrollTop
     if (scrollNum > heightToAppear) {
       !visible && setVisible(true)
     } else {
@@ -31,10 +31,10 @@ export default function TopButton (): React.ReactElement {
   return (
     <>
       {
-        visible &&
-        <div onClick={handleScrollUp} className={styles.btn}>
-          <ArrowIcon />
-        </div>
+        visible && (
+          <div onClick={handleScrollUp} className={styles.btn}>
+            <ArrowIcon />
+          </div>)
       }
     </>
   )

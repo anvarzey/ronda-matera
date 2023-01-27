@@ -53,10 +53,10 @@ const productSchema = new Schema<IProduct>({
   blend: String
 })
 
-export let Product
+export let Product: typeof mongoose.models.Product | IProduct
 
-if (mongoose.models.Product){
+if (mongoose.models.Product !== undefined && mongoose.models.Product !== null) {
   Product = mongoose.models.Product
 } else {
-  Product = model('Product', productSchema)
+  Product = model<IProduct>('Product', productSchema)
 }

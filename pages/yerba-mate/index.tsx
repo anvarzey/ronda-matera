@@ -19,11 +19,14 @@ export default function YerbaMateHandler (): React.ReactElement {
   const { query } = router
   let queryString = ''
   for (const element in query) {
-    queryString = queryString.concat(element, '=', query[element], '&')
+    const actual = query[element]
+    if (actual !== undefined && actual !== null && !Array.isArray(actual)) {
+      queryString = queryString.concat(element, '=', actual, '&')
+    }
   }
   queryString = '?' + queryString.slice(0, queryString.length - 1)
 
-  const apiURL = !queryString
+  const apiURL = queryString === '?'
     ? '/api/products'
     : '/api/products' + queryString
 
@@ -42,23 +45,23 @@ export default function YerbaMateHandler (): React.ReactElement {
       <main className={styles.body}>
         <h1 className={styles.title}>Yerba Mate</h1>
         {
-          query.search &&
-          <RecentSearch />
+          query.search !== undefined && <RecentSearch />
         }
         <div className={styles.gridContainer}>
           <Filters />
           <Order />
           {
-            data
+            data !== undefined && data !== null
               ? <PagesIndex actual={data.page} total={data.totalPages} />
               : <PagesIndex actual={1} total={1} />
           }
           {
             isLoading
-              ? <div className={styles.loaderContainer}>
-                <Loader />
-              </div>
-              : error
+              ? (
+                <div className={styles.loaderContainer}>
+                  <Loader />
+                </div>)
+              : error !== undefined && error !== null
                 ? <ErrorMessage />
                 : <ProductsList data={data} />
           }

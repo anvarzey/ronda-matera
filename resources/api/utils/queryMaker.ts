@@ -2,7 +2,7 @@ interface MultipleQuery {
   $in: string[]
 }
 
-interface Query {
+export interface Query {
   brand?: string | MultipleQuery
   blend?: string | MultipleQuery
   format?: string | MultipleQuery
@@ -36,22 +36,23 @@ export default function queryMaker (queries: Props): Query {
 
   if (filters.find(e => e === prop) !== undefined) {
     for (prop in queries) {
-      if (queries[prop] === undefined) return {}
-      if (prop === 'search') {
-        const searchRegex = queries[prop]?.replaceAll('-', ' ')
-        const searchQuery = {
-          $regex: searchRegex,
-          $options: 'i'
-        }
-        query.name = searchQuery
-      } else {
-        if (queries[prop]?.includes(',') === true) {
-          const arr = queries[prop].split(',')
-          query[prop] = {
-            $in: arr
+      if (queries[prop] !== undefined) {
+        if (prop === 'search') {
+          const searchRegex = queries[prop]?.replaceAll('-', ' ')
+          const searchQuery = {
+            $regex: searchRegex === undefined ? '' : searchRegex,
+            $options: 'i'
           }
+          query.name = searchQuery
         } else {
-          query[prop] = queries[prop]
+          if (queries[prop]?.includes(',') === true) {
+            const arr = queries[prop]?.split(',')
+            query[prop] = {
+              $in: arr === undefined ? [] : arr
+            }
+          } else {
+            query[prop] = queries[prop]
+          }
         }
       }
     }

@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
-export default function useFilter () {
+interface Response {
+  brands: string[]
+  blends: string[]
+  formats: string[]
+  handleBlends: Function
+  handleBrands: Function
+  handleFormats: Function
+  handleQueryString: Function
+}
+
+export default function useFilter (): Response {
   const router = useRouter()
   const { query } = router
   const [brands, setBrands] = useState<string[]>([])
@@ -10,6 +20,8 @@ export default function useFilter () {
   const [search, setSearch] = useState<string[]>([])
   const [sort, setSort] = useState<string[]>([])
   const [otherQueries, setOtherQueries] = useState('')
+
+  let actual
 
   useEffect(() => {
     let tempStr = ''
@@ -20,31 +32,63 @@ export default function useFilter () {
       setSort([])
     }
     for (const element in query) {
-      switch (element) {
-        case 'blend':
-          setBlends(query.blend.split(','))
-          break
-        case 'brand':
-          setBrands(query.brand.split(','))
-          break
-        case 'format':
-          setFormats(query.format.split(','))
-          break
-        case 'page':
-          break
-        case 'search':
-          setSearch(query.search.split(','))
-          break
-        case 'sort':
-          setSort(query.sort.split(','))
-          break
-        default:
-          if (tempStr.length >= 1) {
-            tempStr = `${tempStr}&${element}=${query[element]}`
-          } else {
-            tempStr = `${element}=${query[element]}`
-          }
-          break
+      if (query[element] !== undefined && query[element] !== null) {
+        switch (element) {
+          case 'blend':
+            if (typeof query.blend === 'string') {
+              setBlends(query.blend?.split(','))
+            } else if (Array.isArray(query.blend)) {
+              setBlends(query.blend[0]?.split(','))
+            }
+            break
+          case 'brand':
+            if (typeof query.brand === 'string') {
+              setBrands(query.brand?.split(','))
+            } else if (Array.isArray(query.brand)) {
+              setBrands(query.brand[0]?.split(','))
+            }
+            break
+          case 'format':
+            if (typeof query.format === 'string') {
+              setFormats(query.format?.split(','))
+            } else if (Array.isArray(query.format)) {
+              setFormats(query.format[0]?.split(','))
+            }
+            break
+          case 'page':
+            break
+          case 'search':
+            if (typeof query.search === 'string') {
+              setSearch(query.search?.split(','))
+            } else if (Array.isArray(query.search)) {
+              setSearch(query.search[0]?.split(','))
+            }
+            break
+          case 'sort':
+            if (typeof query.sort === 'string') {
+              setSort(query.sort?.split(','))
+            } else if (Array.isArray(query.sort)) {
+              setSort(query.sort[0]?.split(','))
+            }
+            break
+          default:
+            actual = query[element]
+            if (typeof actual === 'string') {
+              if (tempStr.length >= 1) {
+                tempStr = `${tempStr}&${element}=${actual}`
+              } else {
+                tempStr = `${element}=${actual}`
+              }
+            } else if (Array.isArray(actual)) {
+              if (tempStr.length >= 1) {
+                tempStr = `${tempStr}&${element}=${actual[0]}`
+              } else {
+                tempStr = `${element}=${actual[0]}`
+              }
+            }
+
+            break
+        }
       }
       if (tempStr.length >= 1) setOtherQueries(tempStr)
     }

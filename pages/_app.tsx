@@ -7,7 +7,7 @@ export default function App ({ Component, pageProps }: AppProps): ReactElement {
   return (
     <SWRConfig
       value={{
-        fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+        fetcher: async (resource, init) => await fetch(resource, init).then(async (res) => await res.json()).catch(error => error)
       }}
     >
       <Component {...pageProps} />

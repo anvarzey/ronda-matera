@@ -1,11 +1,43 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import getProducts from '../../services/getProducts'
 
+interface AdvicesObj {
+  // principiante: {
+  //   _id: {
+  //     $in: string[]
+  //   }
+  // }
+  // desmateado: {
+  //   format: string
+  // }
+  // saborizada: {
+  //   _id: {
+  //     $in: string[]
+  //   }
+  // }
+  // intensa: {
+  //   _id: {
+  //     $in: string[]
+  //   }
+  // }
+  // normal: {
+  //   _id: {
+  //     $in: string[]
+  //   }
+  // }
+  // compuesta: {
+  //   _id: {
+  //     $in: string[]
+  //   }
+  // }
+  [ key: string ]: any
+}
+
 export default async function recommenderController (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const advices = {
+  const advices: AdvicesObj = {
     principiante: {
       _id: {
         $in: [
@@ -66,26 +98,29 @@ export default async function recommenderController (
     }
   }
 
-  const { advice } = req.query
-  const query = advices[advice]
-  const beginFrom = 0
-  const page = 1
-  const limit = 15
-  const sortQuery = {}
+  const advice: string | keyof AdvicesObj | undefined = Array.isArray(req.query.advice) ? req.query.advice[0] : req.query.advice
+  if (advice === undefined) {
+    res.status(400).json({ message: 'Parameters are missing' })
+  } else {
+    const query: string = Array.isArray(advices[advice]) ? advices[advice][0] : advices[advice]
+    const beginFrom = 0
+    const page = 1
+    const limit = 15
+    const sortQuery = {}
 
-  const queries = {
-    limit,
-    query,
-    beginFrom,
-    page,
-    sortQuery
-  }
+    const queries = {
+      limit,
+      query,
+      beginFrom,
+      page,
+      sortQuery
+    }
 
-  try {
-    const filteredProducts = await getProducts(queries)
-    res.status(200).json(filteredProducts)
-    // res.status(200).json(query)
-  } catch (err) {
-    res.status(500).send(err)
+    try {
+      const filteredProducts = await getProducts(queries)
+      res.status(200).json(filteredProducts)
+    } catch (err) {
+      res.status(500).send(err)
+    }
   }
 }
