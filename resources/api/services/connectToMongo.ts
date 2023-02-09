@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 const { MONGO_URI, MONGO_TEST, NODE_ENV } = process.env
-const connectionString = NODE_ENV === 'production' ? MONGO_URI : MONGO_TEST
+const connectionString = NODE_ENV === 'test' ? MONGO_TEST : MONGO_URI
 
 if (NODE_ENV !== 'test') {
   mongoose.set('strictQuery', false)
