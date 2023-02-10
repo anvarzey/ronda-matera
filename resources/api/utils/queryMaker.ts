@@ -34,8 +34,8 @@ export default function queryMaker (queries: Props): Query {
 
   let prop: keyof Props
 
-  if (filters.find(e => e === prop) !== undefined) {
-    for (prop in queries) {
+  for (prop in queries) {
+      if (filters.find(e => e === prop) !== undefined) {
       if (queries[prop] !== undefined) {
         if (prop === 'search') {
           const searchRegex = queries[prop]?.replaceAll('-', ' ')

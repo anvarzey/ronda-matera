@@ -2,25 +2,36 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import queryMaker from '../utils/queryMaker'
 import getProducts from '../services/getProducts'
 
+interface SortOptions {
+  [key: string]: {[key: string]: number}
+}
+
 export async function productsController (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const limit = req.query.limit !== undefined ? Number(req.query.limit) : 15
-  const page = req.query.page !== undefined ? Number(req.query.page) - 1 : 0
-  const query = queryMaker(req.query)
-  const sort = Object.hasOwn(req.query, 'sort') ? req.query : undefined
 
-  const sortOptions = {
+  const sortOptions: SortOptions = {
     nameUp: { name: 1 },
     nameDown: { name: -1 },
     priceUp: { 'lowestPrice.price': 1 },
     priceDown: { 'lowestPrice.price': -1 }
   }
 
-  const sortQuery = sort !== undefined && typeof sort === 'string' && Object.hasOwn(sortOptions, sort)
+  const limit = req.query.limit !== undefined ? Number(req.query.limit) : 15
+  const page = req.query.page !== undefined ? Number(req.query.page) - 1 : 0
+  const query = queryMaker(req.query)
+  const sort: keyof typeof sortOptions = Object.hasOwn(req.query, 'sort') && req.query.sort !== undefined
+    ? typeof req.query.sort === 'string'
+      ? req.query.sort
+      : req.query.sort[0]
+    : ''
+
+
+  const sortQuery = Object.hasOwn(sortOptions, sort)
     ? sortOptions[sort]
-    : {}
+    : ''
+
 
   const beginFrom = page * limit
 

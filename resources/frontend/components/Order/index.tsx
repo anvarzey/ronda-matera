@@ -21,7 +21,8 @@ export default function Order (): React.ReactElement {
     if (value === 'aleatorio') {
       if (isSorted) {
         const regexToDelete = /(\?|&)sort=\w+/g
-        const withoutSort = basePath.replace(regexToDelete, '')
+        let withoutSort = basePath.replace(regexToDelete, '')
+        withoutSort = withoutSort.includes('&') && !withoutSort.includes('?') ? withoutSort.replace('&', '?') : withoutSort
         router.push(withoutSort).catch(err => err)
         return
       } else {

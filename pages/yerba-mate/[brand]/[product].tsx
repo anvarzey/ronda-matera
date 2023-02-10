@@ -116,9 +116,6 @@ export default function ProductHandler (): React.ReactElement {
           </table>
         </div>
         <PricesList prices={productData.prices} />
-        <div className={styles.moreInfo}>
-          * Consultar condiciones de envío
-        </div>
       </main>
       <MobileNavbar actual='single' />
     </>

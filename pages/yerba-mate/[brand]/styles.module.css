@@ -72,15 +72,12 @@
   background-color: whitesmoke;
 }
 
-.moreInfo {
-  padding: 0.5rem 1rem;
-  font-style: italic;
-}
-
 .loaderContainer {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (min-width: 50em) {

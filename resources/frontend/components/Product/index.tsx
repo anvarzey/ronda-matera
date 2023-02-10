@@ -6,8 +6,23 @@ import parseFormats from '../../utils/parseFormats'
 
 export default function Product ({ product }): React.ReactElement {
   const bestPrice = formatPrice(product.lowestPrice.price)
-  const triggeredName = product.name.split(' ').filter(word => word !== product.brand).join('-')
-  const url = `/yerba-mate/${product.brand}/${triggeredName}`
+  let triggeredName
+  let triggeredBrand
+  let index
+
+  if (product.brand.includes(' ')) {
+    triggeredBrand = product.brand.split(' ')
+    triggeredName = product.name.split(' ')
+    index = triggeredName.indexOf(triggeredBrand[0])
+    triggeredName.splice(index, triggeredBrand.length).join('-')
+    triggeredBrand = triggeredBrand.join('-')
+    triggeredName = triggeredName.join('-')
+  } else {
+    triggeredName = product.name.split(' ').filter(word => word !== product.brand).join('-')
+    triggeredBrand = product.brand
+
+  }
+  const url = `/yerba-mate/${triggeredBrand}/${triggeredName}`
 
   const {
     blend,
@@ -43,3 +58,4 @@ export default function Product ({ product }): React.ReactElement {
     </Link>
   )
 }
+

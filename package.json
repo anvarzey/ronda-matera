@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_ENV=test next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "NODE_ENV=test jest products.test.ts"
+    "test": "NODE_ENV=test jest productsController.test.ts"
   },
   "dependencies": {
     "@types/node": "18.11.15",

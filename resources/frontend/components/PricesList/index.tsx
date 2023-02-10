@@ -94,6 +94,9 @@ export default function PricesList ({ prices }: { prices: Price[] }): React.Reac
           })
         }
       </ul>
+      <div className={styles.moreInfo}>
+        * Consultar condiciones de envío
+      </div>
     </div>
   )
 }
